@@ -220,7 +220,15 @@ async function createGlobe() {
     }
 
     // Crear el planeta
-    globe = Globe()(container)
+   globe = new Globe(
+    container,
+    {
+        waitForGlobeReady: false,
+        animateIn: false
+    }
+)
+
+
 
         .globeImageUrl(
             "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
