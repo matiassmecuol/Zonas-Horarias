@@ -207,25 +207,58 @@ async function loadCountries() {
 
 async function createGlobe() {
 
-    const response =
-        await fetch(
-            COUNTRIES_URL
-        );
+    const container = document.getElementById("globe");
 
-    if (!response.ok) {
-
-        throw new Error(
-            "No se pudo cargar el mapa mundial"
-        );
-
+    if (!container) {
+        throw new Error("No se encontró el elemento #globe");
     }
 
+    // Crear el planeta
+    globe = Globe()(container)
+        .globeImageUrl(
+            "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+        )
+        .bumpImageUrl(
+            "https://unpkg.com/three-globe/example/img/earth-topology.png"
+        )
+        .backgroundImageUrl(
+            "https://unpkg.com/three-globe/example/img/night-sky.png"
+        )
+        .showAtmosphere(true)
+        .atmosphereColor("#4da6ff")
+        .atmosphereAltitude(0.15);
 
-    const world =
-        await response.json();
+    // Posición inicial
+    globe.pointOfView(
+        {
+            lat: 20,
+            lng: 0,
+            altitude: 2.2
+        },
+        0
+    );
 
+    // Ajustar tamaño
+    function resizeGlobe() {
 
-    globe = Globe(globeElement)
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        if (width > 0 && height > 0) {
+            globe.width(width);
+            globe.height(height);
+        }
+    }
+
+    resizeGlobe();
+
+    window.addEventListener(
+        "resize",
+        resizeGlobe
+    );
+
+    console.log("🌎 Tierra creada correctamente");
+}
 
 
         // ----------------------------------------------------
