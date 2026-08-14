@@ -469,27 +469,9 @@ async function createGlobe() {
     // CONTROLES
     // --------------------------------------------------------
 
-    const controls =
-        globe.controls();
-
-
-    controls.enableDamping =
-        true;
-
-    controls.dampingFactor =
-        0.08;
-
-    controls.rotateSpeed =
-        0.45;
-
-    controls.zoomSpeed =
-        0.7;
-
-    controls.minDistance =
-        115;
-
-    controls.maxDistance =
-        500;
+    
+// Globe.GL ya incluye controles de rotación y zoom.
+// No necesitamos modificar OrbitControls aquí.
 
 
     // --------------------------------------------------------
