@@ -8,7 +8,7 @@
 // ------------------------------------------------------------
 
 const COUNTRIES_URL =
-    "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson";
+    "./countries.geojson";
 
 const REST_COUNTRIES_URL =
     "https://restcountries.com/v3.1/all?fields=name,cca3,cca2,languages,flags,capital,population";
