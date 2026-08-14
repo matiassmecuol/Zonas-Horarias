@@ -304,6 +304,122 @@ async function createGlobe() {
         0
 
     );
+    // --------------------------------------------------------
+    // CARGAR PAÍSES
+    // --------------------------------------------------------
+
+    const response = await fetch(
+        "./countries.geojson"
+    );
+
+    if (!response.ok) {
+
+        throw new Error(
+            "No se pudo cargar countries.geojson"
+        );
+
+    }
+
+    const world =
+        await response.json();
+
+
+    // --------------------------------------------------------
+    // MOSTRAR PAÍSES
+    // --------------------------------------------------------
+
+    globe
+
+        .polygonsData(
+            world.features
+        )
+
+        .polygonAltitude(
+            0.008
+        )
+
+        .polygonCapColor(
+            feature => {
+
+                const colors = [
+                    "#19517d",
+                    "#1d5d8d",
+                    "#246a9b",
+                    "#1f628f",
+                    "#2b729f",
+                    "#235b86",
+                    "#317aa4"
+                ];
+
+                const name =
+                    feature.properties.NAME || "";
+
+                let hash = 0;
+
+                for (
+                    let i = 0;
+                    i < name.length;
+                    i++
+                ) {
+
+                    hash =
+                        name.charCodeAt(i) +
+                        ((hash << 5) - hash);
+
+                }
+
+                return colors[
+                    Math.abs(hash) %
+                    colors.length
+                ];
+
+            }
+        )
+
+        .polygonSideColor(
+            () =>
+                "rgba(20,100,160,0.55)"
+        )
+
+        .polygonStrokeColor(
+            () =>
+                "rgba(130,205,255,0.8)"
+        )
+
+        .polygonLabel(
+            feature => {
+
+                const name =
+                    feature.properties.NAME ||
+                    "Territorio";
+
+                return `
+
+                    <div style="
+                        background:#03101f;
+                        padding:9px 13px;
+                        border-radius:9px;
+                        border:1px solid #4a9ee0;
+                        color:white;
+                        font-family:Arial;
+                    ">
+
+                        <b>${name}</b>
+
+                        <br>
+
+                        <small style="
+                            color:#8fbce8;
+                        ">
+                            Haz clic para información
+                        </small>
+
+                    </div>
+
+                `;
+
+            }
+        );
 
 
     console.log(
