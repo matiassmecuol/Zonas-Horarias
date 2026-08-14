@@ -201,87 +201,38 @@ async function loadCountries() {
 }
 
 
+
 // ------------------------------------------------------------
 // CREAR GLOBO
 // ------------------------------------------------------------
 
 async function createGlobe() {
 
-    const container = document.getElementById("globe");
+    const container =
+        document.getElementById("globe");
 
     if (!container) {
-        throw new Error("No se encontró el elemento #globe");
+
+        throw new Error(
+            "No se encontró el elemento #globe"
+        );
+
     }
 
     // Crear el planeta
     globe = Globe()(container)
+
         .globeImageUrl(
             "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         )
+
         .bumpImageUrl(
             "https://unpkg.com/three-globe/example/img/earth-topology.png"
         )
+
         .backgroundImageUrl(
             "https://unpkg.com/three-globe/example/img/night-sky.png"
         )
-        .showAtmosphere(true)
-        .atmosphereColor("#4da6ff")
-        .atmosphereAltitude(0.15);
-
-    // Posición inicial
-    globe.pointOfView(
-        {
-            lat: 20,
-            lng: 0,
-            altitude: 2.2
-        },
-        0
-    );
-
-    // Ajustar tamaño
-    function resizeGlobe() {
-
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-
-        if (width > 0 && height > 0) {
-            globe.width(width);
-            globe.height(height);
-        }
-    }
-
-    resizeGlobe();
-
-    window.addEventListener(
-        "resize",
-        resizeGlobe
-    );
-
-    console.log("🌎 Tierra creada correctamente");
-}
-
-
-        // ----------------------------------------------------
-        // TEXTURA DE LA TIERRA
-        // ----------------------------------------------------
-
-        .globeImageUrl(
-            "https://cdn.jsdelivr.net/npm/three-globe@2.45.2/example/img/earth-blue-marble.jpg"
-        )
-
-
-        // ----------------------------------------------------
-        // ESTRELLAS
-        // ----------------------------------------------------
-
-        .backgroundImageUrl(
-            "https://cdn.jsdelivr.net/npm/three-globe@2.45.2/example/img/night-sky.png"
-        )
-
-
-        // ----------------------------------------------------
-        // ATMÓSFERA
-        // ----------------------------------------------------
 
         .showAtmosphere(true)
 
@@ -290,256 +241,68 @@ async function createGlobe() {
         )
 
         .atmosphereAltitude(
-            0.16
+            0.15
         );
 
 
     // --------------------------------------------------------
-    // PAÍSES
+    // AJUSTAR TAMAÑO
     // --------------------------------------------------------
 
-    globe
+    function resizeGlobe() {
 
-        .polygonsData(
-            world.features
-        )
+        const width =
+            container.clientWidth;
 
+        const height =
+            container.clientHeight;
 
-        .polygonAltitude(
-            0.008
-        )
 
+        if (
+            width > 0 &&
+            height > 0
+        ) {
 
-        .polygonCapColor(
-            feature => {
+            globe.width(width);
 
-                const iso =
-                    feature.properties.ISO_A3;
-
-                return countryColor(iso);
-
-            }
-        )
-
-
-        .polygonSideColor(
-            () =>
-                "rgba(20,100,160,.55)"
-        )
-
-
-        .polygonStrokeColor(
-            () =>
-                "rgba(130,205,255,.8)"
-        )
-
-
-        .polygonLabel(
-            feature => {
-
-                const iso =
-                    feature.properties.ISO_A3;
-
-                const country =
-                    countriesByISO[iso];
-
-                const name =
-                    country?.name?.common
-                    ||
-                    feature.properties.NAME
-                    ||
-                    "Territorio";
-
-                return `
-
-                    <div style="
-                        background:#03101f;
-                        padding:9px 13px;
-                        border-radius:9px;
-                        border:1px solid #4a9ee0;
-                        color:white;
-                        font-family:Arial;
-                    ">
-
-                        <b>
-                            ${name}
-                        </b>
-
-                        <br>
-
-                        <small style="
-                            color:#8fbce8;
-                        ">
-                            Haz clic para información
-                        </small>
-
-                    </div>
-
-                `;
-
-            }
-        )
-
-
-        .onPolygonClick(
-            async (
-                feature,
-                event,
-                coords
-            ) => {
-
-                await selectCountry(
-                    feature,
-                    coords.lat,
-                    coords.lng
-                );
-
-            }
-        );
-
-
-    // --------------------------------------------------------
-    // LÍNEAS DE ZONAS HORARIAS
-    // --------------------------------------------------------
-
-    const timezoneLines =
-        createTimezoneLines();
-
-
-    globe
-
-        .pathsData(
-            timezoneLines
-        )
-
-
-        .pathPoints(
-            line =>
-                line.points
-        )
-
-
-        .pathColor(
-            () =>
-                "rgba(255,214,74,.75)"
-        )
-
-
-        .pathStroke(
-            0.10
-        )
-
-
-        .pathResolution(
-            1
-        )
-
-
-        .pathLabel(
-            line => {
-
-                const offset =
-                    line.longitude / 15;
-
-                let text;
-
-                if (offset === 0) {
-
-                    text =
-                        "UTC±0";
-
-                } else {
-
-                    const sign =
-                        offset > 0
-                            ? "+"
-                            : "";
-
-                    text =
-                        `UTC${sign}${offset}`;
-
-                }
-
-                return `
-
-                    <div style="
-                        background:#181200;
-                        border:1px solid #ffd64a;
-                        color:#ffe58a;
-                        padding:5px 8px;
-                        border-radius:6px;
-                        font-size:11px;
-                    ">
-
-                        ${text}
-
-                    </div>
-
-                `;
-
-            }
-
-        );
-
-
-    // --------------------------------------------------------
-    // CLICK EN OCÉANO
-    // --------------------------------------------------------
-
-    globe.onGlobeClick(
-        async coords => {
-
-            await showLocation(
-                coords.lat,
-                coords.lng
-            );
+            globe.height(height);
 
         }
-    );
 
+    }
 
-    // --------------------------------------------------------
-    // CONTROLES
-    // --------------------------------------------------------
-
-    
-// Globe.GL ya incluye controles de rotación y zoom.
-// No necesitamos modificar OrbitControls aquí.
-
-
-    // --------------------------------------------------------
-    // POSICIÓN INICIAL
-    // --------------------------------------------------------
-
-   
-// Ajustar el tamaño inicial del globo
-setTimeout(() => {
 
     resizeGlobe();
 
-    globe.pointOfView(
-        {
-            lat: 20,
-            lng: 0,
-            altitude: 2.2
-        },
-        0
-    );
-
-}, 100);
-
-    // --------------------------------------------------------
-    // RESIZE
-    // --------------------------------------------------------
 
     window.addEventListener(
         "resize",
         resizeGlobe
     );
 
+
+    // --------------------------------------------------------
+    // POSICIÓN INICIAL
+    // --------------------------------------------------------
+
+    globe.pointOfView(
+
+        {
+            lat: 20,
+            lng: 0,
+            altitude: 2.2
+        },
+
+        0
+
+    );
+
+
+    console.log(
+        "🌎 Tierra creada correctamente"
+    );
+
 }
-
-
 // ------------------------------------------------------------
 // COLORES DE PAÍSES
 // ------------------------------------------------------------
