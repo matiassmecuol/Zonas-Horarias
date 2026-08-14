@@ -100,52 +100,67 @@ async function start() {
 
     try {
 
-        await loadCountries();
-
         await createGlobe();
+
+        // Cargar información de países después
+        // de que el planeta ya esté funcionando.
+        loadCountries()
+            .catch(error => {
+                console.warn(
+                    "No se pudieron cargar los países:",
+                    error
+                );
+            });
 
         startup.classList.add("hide");
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "ERROR REAL:",
+            error
+        );
 
         startup.innerHTML = `
 
             <div style="
                 text-align:center;
-                max-width:450px;
+                max-width:500px;
                 padding:30px;
             ">
 
-                <div style="font-size:50px">
+                <div style="font-size:55px">
                     ⚠️
                 </div>
 
                 <h2>
-                    No se pudo cargar la Tierra
+                    Error al iniciar el planeta
                 </h2>
 
                 <p style="
-                    color:#8ca4c0;
+                    color:#9bb1c9;
                     line-height:1.6;
                 ">
-                    Comprueba tu conexión a Internet
-                    y vuelve a cargar la página.
+                    El planeta no pudo iniciarse.
                 </p>
 
-                <small style="
-                    color:#516b88;
+                <p style="
+                    color:#ff9b9b;
+                    font-size:12px;
+                    word-break:break-word;
                 ">
                     ${error.message}
-                </small>
+                </p>
 
             </div>
+
         `;
 
     }
 
 }
+
+  
 
 
 // ------------------------------------------------------------
