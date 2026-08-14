@@ -481,6 +481,12 @@ async function createGlobe() {
     // POSICIÓN INICIAL
     // --------------------------------------------------------
 
+   
+// Ajustar el tamaño inicial del globo
+setTimeout(() => {
+
+    resizeGlobe();
+
     globe.pointOfView(
         {
             lat: 20,
@@ -490,6 +496,7 @@ async function createGlobe() {
         0
     );
 
+}, 100);
 
     // --------------------------------------------------------
     // RESIZE
