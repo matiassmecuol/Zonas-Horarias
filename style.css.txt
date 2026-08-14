@@ -1,0 +1,739 @@
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #020817;
+
+    color: white;
+}
+
+
+#app {
+
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    min-height: 600px;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #0a2140 0%,
+            #020817 70%
+        );
+}
+
+
+/* =====================================================
+   GLOBO
+===================================================== */
+
+#globe {
+
+    position: absolute;
+
+    inset: 0;
+
+}
+
+
+/* =====================================================
+   CABECERA
+===================================================== */
+
+#header {
+
+    position: absolute;
+
+    top: 22px;
+    left: 25px;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+}
+
+
+#header h1 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    letter-spacing: -.5px;
+
+    text-shadow:
+        0 3px 20px black;
+
+}
+
+
+#header p {
+
+    margin: 5px 0;
+
+    color: #9cb6d4;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   BUSCADOR
+===================================================== */
+
+#searchBox {
+
+    position: absolute;
+
+    top: 95px;
+    left: 25px;
+
+    width: 280px;
+
+    z-index: 30;
+
+}
+
+
+#countrySearch {
+
+    width: 100%;
+
+    padding: 13px 16px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(120,190,255,.35);
+
+    outline: none;
+
+    background:
+        rgba(3,15,35,.85);
+
+    color: white;
+
+    font-size: 14px;
+
+    backdrop-filter:
+        blur(12px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.3);
+
+}
+
+
+#countrySearch::placeholder {
+
+    color: #8ca6c4;
+
+}
+
+
+#searchResults {
+
+    display: none;
+
+    margin-top: 5px;
+
+    max-height: 300px;
+
+    overflow-y: auto;
+
+    border-radius: 12px;
+
+    background:
+        rgba(3,15,35,.95);
+
+    border:
+        1px solid
+        rgba(120,190,255,.25);
+
+}
+
+
+.searchResult {
+
+    padding: 11px 14px;
+
+    cursor: pointer;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+
+    font-size: 13px;
+
+}
+
+
+.searchResult:hover {
+
+    background:
+        rgba(60,150,255,.18);
+
+}
+
+
+/* =====================================================
+   PANEL
+===================================================== */
+
+#infoPanel {
+
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 355px;
+
+    max-width:
+        calc(100% - 40px);
+
+    z-index: 30;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(3,13,31,.91);
+
+    border:
+        1px solid
+        rgba(110,190,255,.25);
+
+    box-shadow:
+
+        0 25px 70px
+        rgba(0,0,0,.5),
+
+        inset 0 0 40px
+        rgba(60,140,255,.04);
+
+    backdrop-filter:
+        blur(18px);
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+
+}
+
+
+#infoPanel.hidden {
+
+    transform:
+        translateX(400px);
+
+    opacity: 0;
+
+}
+
+
+#closePanel {
+
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+#countryFlag {
+
+    font-size: 45px;
+
+    margin-bottom: 4px;
+
+}
+
+
+#countryName {
+
+    margin: 0;
+
+    padding-right: 30px;
+
+    font-size: 26px;
+
+}
+
+
+#countryOfficial {
+
+    margin-top: 5px;
+
+    margin-bottom: 18px;
+
+    color: #7fb7ed;
+
+    font-size: 12px;
+
+}
+
+
+.dataRow {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 15px;
+
+    padding: 11px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+
+    font-size: 13px;
+
+}
+
+
+.dataRow span {
+
+    color: #91a9c5;
+
+}
+
+
+.dataRow strong {
+
+    max-width: 55%;
+
+    text-align: right;
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   CLIMA
+===================================================== */
+
+#weather {
+
+    margin-top: 17px;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35,125,220,.15),
+            rgba(20,60,120,.08)
+        );
+
+    border:
+        1px solid
+        rgba(80,160,255,.15);
+
+}
+
+
+#weather h3 {
+
+    margin: 0 0 12px;
+
+    font-size: 14px;
+
+    color: #8bc8ff;
+
+}
+
+
+#weatherMain {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+
+}
+
+
+#weatherIcon {
+
+    font-size: 31px;
+
+}
+
+
+.weatherGrid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+
+}
+
+
+.weatherGrid div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.weatherGrid small {
+
+    color: #7994b2;
+
+    font-size: 11px;
+
+}
+
+
+.weatherGrid strong {
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+#loadingInfo {
+
+    margin-top: 12px;
+
+    color: #6daff0;
+
+    font-size: 11px;
+
+}
+
+
+#startup {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #020817;
+
+    transition:
+        opacity .6s ease;
+
+}
+
+
+#startup.hide {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+#startup h2 {
+
+    margin: 12px 0 5px;
+
+}
+
+
+#startup p {
+
+    margin: 0;
+
+    color: #7188a5;
+
+    font-size: 13px;
+
+}
+
+
+.spinner {
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    border:
+        4px solid
+        rgba(255,255,255,.12);
+
+    border-top-color:
+        #45a8ff;
+
+    animation:
+        spin 1s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   AYUDA
+===================================================== */
+
+#help {
+
+    position: absolute;
+
+    bottom: 20px;
+    left: 20px;
+
+    display: flex;
+
+    gap: 10px;
+
+    z-index: 20;
+
+}
+
+
+#help span {
+
+    padding:
+        9px 12px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(3,13,30,.75);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color: #9cb3cc;
+
+    font-size: 11px;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+/* =====================================================
+   LEYENDA
+===================================================== */
+
+#legend {
+
+    position: absolute;
+
+    bottom: 20px;
+    right: 20px;
+
+    z-index: 20;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(3,13,30,.75);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    color: #9cb3cc;
+
+    font-size: 11px;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+#legend div {
+
+    margin: 5px 0;
+
+}
+
+
+.legendLine {
+
+    display: inline-block;
+
+    width: 22px;
+
+    border-top:
+        2px solid
+        #ffd75a;
+
+    margin-right: 7px;
+
+}
+
+
+.legendCountry {
+
+    display: inline-block;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 3px;
+
+    background:
+        #2673a8;
+
+    border:
+        1px solid
+        #8fd0ff;
+
+    margin-right: 7px;
+
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 700px) {
+
+    #header {
+
+        top: 12px;
+        left: 15px;
+
+    }
+
+
+    #header h1 {
+
+        font-size: 20px;
+
+    }
+
+
+    #searchBox {
+
+        top: 70px;
+        left: 15px;
+
+        width: 220px;
+
+    }
+
+
+    #infoPanel {
+
+        top: auto;
+
+        bottom: 10px;
+
+        left: 10px;
+        right: 10px;
+
+        width: auto;
+
+        max-height: 52vh;
+
+        overflow-y: auto;
+
+    }
+
+
+    #help {
+
+        display: none;
+
+    }
+
+
+    #legend {
+
+        display: none;
+
+    }
+
+}

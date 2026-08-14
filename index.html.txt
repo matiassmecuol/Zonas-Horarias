@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Explorador de Zonas Horarias</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- GLOBO -->
+    <div id="globe"></div>
+
+
+    <!-- TÍTULO -->
+    <header id="header">
+
+        <h1>🌎 Zonas Horarias</h1>
+
+        <p>
+            Explorador interactivo de la Tierra
+        </p>
+
+    </header>
+
+
+    <!-- BUSCADOR -->
+    <div id="searchBox">
+
+        <input
+            id="countrySearch"
+            type="text"
+            placeholder="🔎 Buscar país..."
+            autocomplete="off"
+        >
+
+        <div id="searchResults"></div>
+
+    </div>
+
+
+    <!-- PANEL -->
+    <aside id="infoPanel">
+
+        <button id="closePanel">
+            ×
+        </button>
+
+        <div id="countryFlag"></div>
+
+        <h2 id="countryName">
+            Selecciona un país
+        </h2>
+
+        <div id="countryOfficial">
+            Haz clic sobre un país del planeta
+        </div>
+
+
+        <div class="dataRow">
+
+            <span>
+                📍 Coordenadas
+            </span>
+
+            <strong id="coordinates">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="dataRow">
+
+            <span>
+                🕐 Zona horaria
+            </span>
+
+            <strong id="timezone">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="dataRow">
+
+            <span>
+                ⏰ Hora local
+            </span>
+
+            <strong id="localTime">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="dataRow">
+
+            <span>
+                🌐 Idiomas
+            </span>
+
+            <strong id="languages">
+                —
+            </strong>
+
+        </div>
+
+
+        <section id="weather">
+
+            <h3>
+                🌤️ Clima actual
+            </h3>
+
+
+            <div id="weatherMain">
+
+                <span id="weatherIcon">
+                    🌤️
+                </span>
+
+                <span id="weatherDescription">
+                    —
+                </span>
+
+            </div>
+
+
+            <div class="weatherGrid">
+
+                <div>
+
+                    <small>
+                        Temperatura
+                    </small>
+
+                    <strong id="temperature">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Sensación
+                    </small>
+
+                    <strong id="feelsLike">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Humedad
+                    </small>
+
+                    <strong id="humidity">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Viento
+                    </small>
+
+                    <strong id="wind">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div id="loadingInfo">
+
+            Obteniendo información...
+
+        </div>
+
+    </aside>
+
+
+    <!-- AYUDA -->
+    <div id="help">
+
+        <span>🖱️ Arrastra</span>
+        <span>🔍 Zoom</span>
+        <span>🌎 Haz clic</span>
+
+    </div>
+
+
+    <!-- LEYENDA -->
+    <div id="legend">
+
+        <div>
+            <span class="legendLine"></span>
+            Zonas horarias teóricas
+        </div>
+
+        <div>
+            <span class="legendCountry"></span>
+            Países
+        </div>
+
+    </div>
+
+
+    <!-- CARGANDO -->
+    <div id="startup">
+
+        <div class="spinner"></div>
+
+        <h2>
+            Cargando Tierra...
+        </h2>
+
+        <p>
+            Preparando el explorador 3D
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+
+<!-- THREE GLOBE -->
+<script src="https://cdn.jsdelivr.net/npm/three-globe@2.45.2/dist/three-globe.min.js"></script>
+
+
+<!-- GLOBE.GL -->
+<script src="https://cdn.jsdelivr.net/npm/globe.gl@2.45.2/dist/globe.gl.min.js"></script>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
